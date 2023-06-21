@@ -1,0 +1,17 @@
+version: "3"
+services:
+  server:
+    container_name: 'cms-capture-server'
+    image: 'francisngo/cms-capture-server'
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+      - 9229:9229 # for debugging
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: pnpm start:docker
+    environment:
+      PORT: 8080

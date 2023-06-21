@@ -37,5 +37,5 @@ const resolvers = {
     const PORT = process.env.PORT || 8080;
     await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
 
-    console.log(`🚀 Server ready at http://localhost:8080`);
+    console.log(`🚀 Server ready at http://localhost:${PORT}`);
 })();

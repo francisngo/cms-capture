@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "npx nodemon",
     "start": "ts-node src/index.ts",
-    "build": "rimraf build && swc ./src -d build"
+    "build": "rimraf build && swc ./src -d build",
+    "start:docker": "pnpm build & pnpm start"
   },
   "keywords": [],
   "author": "",
