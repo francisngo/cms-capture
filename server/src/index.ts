@@ -21,8 +21,8 @@ const resolvers = {
     });
 
     const { url } = await startStandaloneServer(server, {
-        listen: { port: 4000 }
+        listen: { port: 8080 }
     });
 
-    console.log(`🚀 Server ready at http://localhost:4000`);
+    console.log(`🚀 Server ready at http://localhost:8080`);
 })();
