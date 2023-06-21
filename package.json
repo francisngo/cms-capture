@@ -1,0 +1,15 @@
+{
+  "name": "cms-capture",
+  "version": "1.0.0",
+  "description": "CMS Tool for Capture - a marketplace for cameras, lenses, bags, microphones & more.",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "pnpm install --prefix server",
+    "install": "pnpm run install-server",
+    "server": "pnpm run watch --prefix server",
+    "deploy": "pnpm start --prefix server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

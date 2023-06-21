@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-RUN npm install i - g pnpm
+RUN npm install -g pnpm
 
 WORKDIR /app
 

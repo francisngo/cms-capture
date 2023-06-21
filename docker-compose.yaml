@@ -12,6 +12,5 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: pnpm start:docker
     environment:
-      PORT: 8080
+      - PORT=8080
