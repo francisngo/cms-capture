@@ -8,9 +8,11 @@ COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile
 
-COPY . .
+COPY prisma/schema.prisma ./prisma/
 
-ENV PORT=8080
+RUN pnpx prisma generate
+
+COPY . .
 
 EXPOSE 8080
 
