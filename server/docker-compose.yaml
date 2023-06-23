@@ -12,7 +12,6 @@ services:
       POSTGRES_DB: capture-db
     volumes:
       - ./postgresql/data:/var/lib/postgresql/data
-
   server:
     container_name: 'cms-capture-server'
     image: 'francisngo/cms-capture-server'
