@@ -3,7 +3,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 import http from 'http';
 import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { expressMiddleware } from '@apollo/server/express4';
 import { gql } from 'graphql-tag';
+import models from './models';
 
 const app = express();
 app.use(cors({ origin: 'http://localhost:8080' }));
@@ -19,23 +22,36 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        hello: () => 'world'
+        hello: () => 'world',
     },
 };
 
 (async () => {
-    app.get('/', (req, res) => {
-        res.json({ hello: 'world' });
-    })
+    try {
+        await models.sequelize.authenticate();
+        console.log('Connected to the database');
 
-    const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-    });
-    await server.start();
+        await models.sequelize.sync({ force: true });
+        console.log('Models synced with the database');
 
-    const PORT = process.env.PORT || 8080;
-    await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
+        app.get('/', (req, res) => {
+            res.json({ message: 'Welcome to CMS Capture' });
+        });
 
-    console.log(`🚀 Server ready at http://localhost:${PORT}`);
+        const server = new ApolloServer({
+            typeDefs,
+            resolvers,
+            plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+        });
+        await server.start();
+
+        app.use('/graphql', express.json(), expressMiddleware(server));
+
+        const PORT = process.env.PORT || 8080;
+        await new Promise<void>(resolve => httpServer.listen({ port: PORT }, resolve));
+
+        console.log(`🚀 Server ready at http://localhost:${PORT}`);
+    } catch (error) {
+        console.error('Unable to connect to the database: ', error);
+    }
 })();
