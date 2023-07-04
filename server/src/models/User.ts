@@ -19,6 +19,14 @@ export default (sequelize: any, DataTypes: DataTypes) => {
                 isEmail: true,
             },
         },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     });
     return User;
 };
